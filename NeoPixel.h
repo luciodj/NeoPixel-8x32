@@ -12,17 +12,18 @@
 
 #define NEO_ROWS        8
 #define NEO_COLUMNS     32
+#define NEO_EXT         5       // extra rows (1 char) for scrolling/animations
 #define N_LED           NEO_ROWS * NEO_COLUMNS
 #define POWER_LIMIT     0x1f    // mask to reduce max current draw 
 
-#define NEO_RED     0x100000    // 0RGB
+#define NEO_RED     0x080000    // 0RGB
 #define NEO_BLUE    0x000004
-#define NEO_GREEN   0x000400 
+#define NEO_GREEN   0x000800 
 #define NEO_PURPLE  0x100010
 #define NEO_BLACK   0x000000
 #define NEO_ORANGE  0x080400
 #define NEO_YELLOW  0x080800
-
+#define NEO_WHITE   0x080808
 
 void NeoPixel_Send(uint8_t *p, uint8_t count);
 void NeoPixel_Clear(uint32_t color);

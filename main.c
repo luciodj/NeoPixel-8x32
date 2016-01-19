@@ -44,10 +44,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  */
 
 #include "NeoPixel.h"
+#include "mcc_generated_files/adc.h"
 #include <ctype.h>
 #include <string.h>
 
-#define STR_SIZE    14
+#define STR_SIZE    32
 char s[STR_SIZE];
 
 uint32_t bg = NEO_BLACK;        // default background color
@@ -136,13 +137,13 @@ void ProcessInput( char c)
  */
 void main(void)
 {
-    uint8_t delay = 0;
+    uint8_t delay=0, delaySet=0;
     s[0] = '\0';
     scrolling = true;
     SYSTEM_Initialize();
     INTERRUPT_GlobalInterruptEnable();
     INTERRUPT_PeripheralInterruptEnable();
-
+    ADC_StartConversion( channel_POT);
     puts("\nXPRESS NeoPixel Demo");
     NeoPixel_Clear(NEO_BLACK);  
     strcpy(s, "** Xpress ");
@@ -154,13 +155,16 @@ void main(void)
     {
         if (EUSART_DataReady)
             ProcessInput(getche());
-        
-        if ( TMR2_HasOverflowOccured())     // 10ms
-        {   
+
+        if (ADC_IsConversionDone()) {
+            delaySet = ADC_GetConversionResult() >> 6; // need only 4 bit
+            ADC_StartConversion(channel_POT);
+        }
+        if ( TMR2_HasOverflowOccured()) {    // 10ms
             if ( delay > 0) delay--;
             else {
                 if (scrolling)  NeoPixel_Scroll(s, fg, false);
-                delay = 2;
+                delay = delaySet;
             }
         }
     }

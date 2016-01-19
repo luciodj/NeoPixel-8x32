@@ -7,7 +7,7 @@
 
 uint8_t _x;                 // cursor column
 uint32_t _bgColor = 0;       // background color
-uint8_t buffer[ 3 * N_LED + 6*24]; //    G, R, B,  buffer + extension char
+uint8_t buffer[3*N_LED + 3*NEO_EXT*8]; //    G, R, B,  buffer + extension char
 uint8_t *_end = buffer + sizeof(buffer);
 
 void NeoPixel_Send(uint8_t *p, uint8_t count) 
@@ -19,7 +19,7 @@ void NeoPixel_Send(uint8_t *p, uint8_t count)
             if ((bitCount & 7) == 0) {
                 data = *p++ & POWER_LIMIT;    // optionally << to control brightness
             }
-            SSP1BUF = ((data & 0x80)) ? 0xF0 : 0x80;  // WS2812B 900ns - 350ns
+            SSP1BUF = ((data & 0x80)) ? 0xFF : 0x80;  // WS2812B 900ns - 350ns
             data <<= 1;
         } while (--bitCount);
         if (p >= _end) p = buffer;
@@ -39,7 +39,7 @@ void NeoPixel_SetColumn(uint8_t x)
 void NeoPixel_Clear(uint32_t color)
 {
     uint8_t i,j, *bp = buffer;
-    for(i=0; i<NEO_COLUMNS+6; i++)  // include the extension char
+    for(i=0; i<NEO_COLUMNS+NEO_EXT; i++)  // include the extension char
         for(j=0; j<NEO_ROWS; j++) {
             *bp++ = color >> 8;  // G
             *bp++ = color >> 16; // R
@@ -69,7 +69,7 @@ const uint8_t inv[8] = {15*3, 13*3, 11*3, 9*3, 7*3, 5*3, 3*3, 3};
 void NeoPixel_ShiftLeft(void)
 {
     uint8_t i, j, *bp = buffer;
-    for(i=0; i<NEO_COLUMNS+5; i+=1) {
+    for(i=0; i<NEO_COLUMNS+NEO_EXT-1; i+=1) {
     // invert as you shift (zig zag pattern)
         for(j=0; j<8; j++) {
             memcpy(bp, &bp[inv[j]], 3);  // copy color information
@@ -169,7 +169,7 @@ void NeoPixel_Scroll( char *s, uint32_t color, bool start)
     if (s[0] == 0) return;              // string empty
     if (s[count] == '\0') count=0;      // roll over
     if (index++ == 0) {
-        NeoPixel_SetColumn(NEO_COLUMNS);    // point to the extension buffer
+        NeoPixel_SetColumn(NEO_COLUMNS-1);    // point to the extension buffer
         NeoPixel_Putchar(s[count++], color);    
     }
     NeoPixel_ShiftLeft();

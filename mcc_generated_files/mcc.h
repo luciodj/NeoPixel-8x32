@@ -50,6 +50,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "adc.h"
+#include "clc1.h"
 #include "interrupt_manager.h"
 #include "eusart.h"
 #include "spi1.h"

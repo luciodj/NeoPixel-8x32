@@ -56,14 +56,13 @@ void PIN_MANAGER_Initialize(void)
     WPUA = 0xFF;
     WPUB = 0xFF;
     WPUC = 0x6C;
-    ANSELA = 0xFF;
-    ANSELB = 0xFF;
+    ANSELA = 0xFF;  // AN4 POT
+    ANSELB = 0xFF;  // ANB0 AN
     ANSELC = 0x64;
     TRISB = 0x0;
     TRISC = 0x1A;
-    TRISA = 0x0;
-
-    
+    TRISA = 0x10;   // AN4 POT
+    SLRCONC = 0x3f;
 
     bool state = GIE;
     GIE = 0;
@@ -75,11 +74,12 @@ void PIN_MANAGER_Initialize(void)
     RC0PPS = 0x0010;   //RC0->EUSART:TX;
     SSP1DATPPSbits.SSP1DATPPS = 0x0014;   //RC4->MSSP1:SDI1;
     RXPPSbits.RXPPS = 0x0011;   //RC1->EUSART:RX;
-    RC7PPS = 0x0015;   //RC7->MSSP1:SDO1;
+    RC7PPS = 0x15;   // 15 MSSP1:SDO1;
+//    RC2PPS = 0x15;
 
-    PPSLOCK = 0x55;
-    PPSLOCK = 0xAA;
-    PPSLOCKbits.PPSLOCKED = 0x01; // lock PPS
+//    PPSLOCK = 0x55;
+//    PPSLOCK = 0xAA;
+//    PPSLOCKbits.PPSLOCKED = 0x01; // lock PPS
     GIE = state;
 }
 /**
