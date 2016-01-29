@@ -8,17 +8,17 @@
     tmr2.h
 
   @Summary
-    This is the generated header file for the TMR2 driver using MPLAB® Code Configurator
+    This is the generated header file for the TMR2 driver using MPLAB(c) Code Configurator
 
   @Description
     This header file provides APIs for TMR2.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v3.00 Beta
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC16F18855
         Driver Version    :  1.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.35
-        MPLAB             :  MPLAB X v3.10
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -437,6 +437,35 @@ void TMR2_Start(void);
 
 /**
   @Summary
+    This function starts the TMR2.
+
+  @Description
+    This function starts the TMR2 operation.
+    This function must be called after the initialization of TMR2.
+
+  @Preconditions
+    Initialize  the TMR2 before calling this function.
+
+  @Param
+    None
+
+  @Returns
+    None
+
+  @Example
+    <code>
+    // Initialize TMR2 module
+
+    // Start TMR2
+    TMR2_StartTimer();
+
+    // Do something else...
+    </code>
+*/
+void TMR2_StartTimer(void);
+
+/**
+  @Summary
     This function stops the TMR2.
 
   @Description
@@ -466,6 +495,38 @@ void TMR2_Start(void);
     </code>
 */
 void TMR2_Stop(void);
+
+/**
+  @Summary
+    This function stops the TMR2.
+
+  @Description
+    This function stops the TMR2 operation.
+    This function must be called after the start of TMR2.
+
+  @Preconditions
+    Initialize  the TMR2 before calling this function.
+
+  @Param
+    None
+
+  @Returns
+    None
+
+  @Example
+    <code>
+    // Initialize TMR2 module
+
+    // Start TMR2
+    TMR2_StartTimer();
+
+    // Do something else...
+
+    // Stop TMR2;
+    TMR2_StopTimer();
+    </code>
+*/
+void TMR2_StopTimer(void);
 
 /**
   @Summary
@@ -501,6 +562,41 @@ void TMR2_Stop(void);
     </code>
 */
 uint8_t TMR2_Counter8BitGet(void);
+
+/**
+  @Summary
+    Reads the TMR2 register.
+
+  @Description
+    This function reads the TMR2 register value and return it.
+
+  @Preconditions
+    Initialize  the TMR2 before calling this function.
+
+  @Param
+    None
+
+  @Returns
+    This function returns the current value of TMR2 register.
+
+  @Example
+    <code>
+    // Initialize TMR2 module
+
+    // Start TMR2
+    TMR2_StartTimer();
+
+    // Read the current value of TMR2
+    if(0 == TMR2_ReadTimer())
+    {
+        // Do something else...
+
+        // Reload the TMR value
+        TMR2_LoadPeriodRegister();
+    }
+    </code>
+*/
+uint8_t TMR2_ReadTimer(void);
 
 /**
   @Summary
@@ -540,6 +636,45 @@ uint8_t TMR2_Counter8BitGet(void);
     </code>
 */
 void TMR2_Counter8BitSet(uint8_t timerVal);
+
+/**
+  @Summary
+    Writes the TMR2 register.
+
+  @Description
+    This function writes the TMR2 register.
+    This function must be called after the initialization of TMR2.
+
+  @Preconditions
+    Initialize  the TMR2 before calling this function.
+
+  @Param
+    timerVal - Value to write into TMR2 register.
+
+  @Returns
+    None
+
+  @Example
+    <code>
+    #define PERIOD 0x80
+    #define ZERO   0x00
+
+    while(1)
+    {
+        // Read the TMR2 register
+        if(ZERO == TMR2_ReadTimer())
+        {
+            // Do something else...
+
+            // Write the TMR2 register
+            TMR2_WriteTimer(PERIOD);
+        }
+
+        // Do something else...
+    }
+    </code>
+*/
+void TMR2_WriteTimer(uint8_t timerVal);
 
 /**
   @Summary
@@ -592,6 +727,58 @@ void TMR2_Counter8BitSet(uint8_t timerVal);
     </code>
 */
 void TMR2_Period8BitSet(uint8_t periodVal);
+
+/**
+  @Summary
+    Load value to Period Register.
+
+  @Description
+    This function writes the value to PR2 register.
+    This function must be called after the initialization of TMR2.
+
+  @Preconditions
+    Initialize  the TMR2 before calling this function.
+
+  @Param
+    periodVal - Value to load into TMR2 register.
+
+  @Returns
+    None
+
+  @Example
+    <code>
+    #define PERIOD1 0x80
+    #define PERIOD2 0x40
+    #define ZERO    0x00
+
+    while(1)
+    {
+        // Read the TMR2 register
+        if(ZERO == TMR2_ReadTimer())
+        {
+            // Do something else...
+
+            if(flag)
+            {
+                flag = 0;
+
+                // Load Period 1 value
+                TMR2_LoadPeriodRegister(PERIOD1);
+            }
+            else
+            {
+                 flag = 1;
+
+                // Load Period 2 value
+                TMR2_LoadPeriodRegister(PERIOD2);
+            }
+        }
+
+        // Do something else...
+    }
+    </code>
+*/
+void TMR2_LoadPeriodRegister(uint8_t periodVal);
 
 /**
   @Summary

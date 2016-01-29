@@ -8,17 +8,17 @@
     spi1.c
 
   @Summary
-    This is the generated driver implementation file for the MSSP1 driver using MPLAB® Code Configurator
+    This is the generated driver implementation file for the MSSP1 driver using MPLAB(c) Code Configurator
 
   @Description
     This source file provides APIs for MSSP1.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v3.00 Beta
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.35
-        MPLAB             :  MPLAB X v3.10
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -65,14 +65,14 @@ void SPI1_Initialize(void)
 {
     // Set the SPI1 module to the options selected in the User Interface
     
-    // SMP Middle; CKE Active to Idle; 
-    SSP1STAT = 0x40;
+    // SMP Middle; CKE Idle to Active; 
+    SSP1STAT = 0x00;
     
     // SSPEN enabled; CKP Idle:Low, Active:High; SSPM FOSC/4; 
     SSP1CON1 = 0x20;
     
-    // SSPADD 0; 
-    SSP1ADD = 0x00;
+    // SSPADD 1; 
+    SSP1ADD = 0x01;
 }
 
 uint8_t SPI1_Exchange8bit(uint8_t data)

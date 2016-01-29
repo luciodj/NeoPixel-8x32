@@ -8,17 +8,17 @@
     eusart.c
 
   @Summary
-    This is the generated driver implementation file for the EUSART driver using MPLAB® Code Configurator
+    This is the generated driver implementation file for the EUSART driver using MPLAB(c) Code Configurator
 
   @Description
     This header file provides implementations for driver APIs for EUSART.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v3.00 Beta
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC16F18855
         Driver Version    :  2.00
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.35
-        MPLAB             :  MPLAB X v3.10
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -154,10 +154,15 @@ void EUSART_Write(uint8_t txData)
     PIE3bits.TXIE = 1;
 }
 
+char getch(void)
+{
+    return EUSART_Read();
+}
+
 char getche(void)
 {
-    char c = EUSART_Read();
-    EUSART_Write(c);   // echo
+    char c = getch();
+    putch(c);
     return c;
 }
 

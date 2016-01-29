@@ -1,5 +1,5 @@
 /**
-  @Generated MPLAB® Code Configurator Header File
+  @Generated MPLAB(c) Code Configurator Header File
 
   @Company:
     Microchip Technology Inc.
@@ -8,17 +8,17 @@
     mcc.h
 
   @Summary:
-    This is the mcc.h file generated using MPLAB® Code Configurator
+    This is the mcc.h file generated using MPLAB(c) Code Configurator
 
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v3.00 Beta
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC16F18855
         Version           :  1.02
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.35
-        MPLAB             :  MPLAB X v3.10
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 */
 
 /*
@@ -50,14 +50,14 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "pin_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "adc.h"
-#include "clc1.h"
 #include "interrupt_manager.h"
+#include "adcc.h"
+#include "clc1.h"
 #include "eusart.h"
 #include "spi1.h"
 #include "tmr2.h"
 
-#define _XTAL_FREQ  32000000UL
+#define _XTAL_FREQ  32000000
 
 /**
  * @Param

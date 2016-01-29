@@ -19,7 +19,7 @@ void NeoPixel_Send(uint8_t *p, uint8_t count)
             if ((bitCount & 7) == 0) {
                 data = *p++ & POWER_LIMIT;    // optionally << to control brightness
             }
-            SSP1BUF = ((data & 0x80)) ? 0xFF : 0x80;  // WS2812B 900ns - 350ns
+            SSP1BUF = ((data & 0x80)) ? 0xFE : 0xC0;  // WS2812B 900ns - 350ns           
             data <<= 1;
         } while (--bitCount);
         if (p >= _end) p = buffer;

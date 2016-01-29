@@ -44,7 +44,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  */
 
 #include "NeoPixel.h"
-#include "mcc_generated_files/adc.h"
+#include "mcc_generated_files/mcc.h"
 #include <ctype.h>
 #include <string.h>
 
@@ -143,7 +143,7 @@ void main(void)
     SYSTEM_Initialize();
     INTERRUPT_GlobalInterruptEnable();
     INTERRUPT_PeripheralInterruptEnable();
-    ADC_StartConversion( channel_POT);
+    ADCC_StartConversion(POT);
     puts("\nXPRESS NeoPixel Demo");
     NeoPixel_Clear(NEO_BLACK);  
     strcpy(s, "** Xpress ");
@@ -156,9 +156,9 @@ void main(void)
         if (EUSART_DataReady)
             ProcessInput(getche());
 
-        if (ADC_IsConversionDone()) {
-            delaySet = ADC_GetConversionResult() >> 6; // need only 4 bit
-            ADC_StartConversion(channel_POT);
+        if (ADCC_IsConversionDone()) {
+            delaySet = ADCC_GetConversionResult() >> 6; // need only 4 bit
+            ADCC_StartConversion(POT);
         }
         if ( TMR2_HasOverflowOccured()) {    // 10ms
             if ( delay > 0) delay--;

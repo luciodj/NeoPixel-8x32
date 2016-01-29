@@ -8,17 +8,17 @@
     pin_manager.h
 
   @Summary:
-    This is the Pin Manager file generated using MPLAB® Code Configurator
+    This is the Pin Manager file generated using MPLAB(c) Code Configurator
 
   @Description:
     This header file provides implementations for pin APIs for all pins selected in the GUI.
     Generation Information :
-        Product Revision  :  MPLAB® Code Configurator - v3.0 Beta
+        Product Revision  :  MPLAB(c) Code Configurator - v3.00
         Device            :  PIC16F18855
         Version           :  1.01
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v1.35
-        MPLAB             :  MPLAB X v3.10
+        Compiler          :  XC8 1.35
+        MPLAB             :  MPLAB X 3.20
 
     Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
 
